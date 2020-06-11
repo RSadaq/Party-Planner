@@ -1,0 +1,1 @@
+SELECT Party_Item FROM dbo.[Party Planner];
