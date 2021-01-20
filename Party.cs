@@ -40,7 +40,6 @@ namespace PartyPlanner2
             {
                 foodPrices.Add(reader["Menu"].ToString(), (decimal)reader["Price"]);
             }
-
           
         }
 

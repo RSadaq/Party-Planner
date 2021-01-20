@@ -22,7 +22,6 @@ namespace PartyPlanner2
             populateListBoxes(p.foodPrices, MenuListBox);
 
         }
-
         public void populateListBoxes(Dictionary<string, decimal> items, ListBox x)//method to populate ListBoxes on UI
         {
             foreach (KeyValuePair<string, decimal> item in items)
