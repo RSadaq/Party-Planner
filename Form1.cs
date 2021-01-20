@@ -17,29 +17,18 @@ namespace PartyPlanner2
             InitializeComponent();
             Party p = new Party();
 
-          
-
-            foreach (KeyValuePair<string, decimal> drink in p.drinkPrices)
-
-            {
-                DrinksListBox.Items.Add(drink.Key);
-            }
-
-            foreach (KeyValuePair<string, decimal> food in p.foodPrices)
-            {
-                MenuListBox.Items.Add(food.Key);
-            }
-
-            foreach (KeyValuePair<string, decimal> entertainment in p.entertainmentPrices)
-            {
-                EntertainmentListBox.Items.Add(entertainment.Key);
-            }
+            populateListBoxes(p.entertainmentPrices, EntertainmentListBox);
+            populateListBoxes(p.drinkPrices, DrinksListBox);
+            populateListBoxes(p.foodPrices, MenuListBox);
 
         }
 
-        public void populateListBoxes()
+        public void populateListBoxes(Dictionary<string, decimal> items, ListBox x)//method to populate ListBoxes on UI
         {
-
+            foreach (KeyValuePair<string, decimal> item in items)
+            {
+               x.Items.Add(item.Key);
+            }
         }
 
         private void MenuListBox_SelectedIndexChanged(object sender, EventArgs e)
