@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
-using System.Diagnostics;
 
 namespace PartyPlanner
 {
     public class Party
     {
-
         public Party()
         {
-            SetPricesFromDatabase();
+            PopulateFood();
+            PopulateDrink();
+            PopulateEntertainment();
         }
 
-        public Dictionary<string, decimal> prices = new Dictionary<string, decimal>();
-        public int NoOfGuests;
-        private decimal DrinksCost;
-        private string drink;
-        private string menu;
-        private decimal MenuCost;
-        private string Decorations;
-        private decimal DecorationPrice;
-        private string entertainment;
-        private decimal EntertainmentPrice;
-        public string connectionString = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\feroz\OneDrive\Documents\csharpProjects\PartyPlanner\PartyPlanner\PartyPlannerPrices.mdf;Integrated Security = True";
+        public Dictionary<string, decimal> foodPrices = new Dictionary<string, decimal>();
+        public Dictionary<string, decimal> drinkPrices = new Dictionary<string, decimal>();
+        public Dictionary<string, decimal> entertainmentPrices = new Dictionary<string, decimal>();
+        public bool decorations;
+        public const decimal decorationsCost = 200;
+        public decimal foodCost;
+        public decimal drinksCost;
+        public decimal entertainmentCost;
+        public int noOfGuests;
 
-        public void SetPricesFromDatabase()
+        public string connectionString = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Rehana\csharpProjects\PartyPlanner\PartyPlanner\PartyPlannerPrices.mdf;Integrated Security = True";
+
+        public void PopulateFood()
         {
             SqlConnection con;
             con = new SqlConnection(connectionString);
@@ -36,109 +36,62 @@ namespace PartyPlanner
             SqlCommand command;//Need this to query
             SqlDataReader reader;//For viewing result
             String sql = "";
-            sql = "SELECT Party_Item, Price FROM dbo.[Party Planner];";
+            sql = "SELECT Menu, Price FROM dbo.[MenuPrices];";
             command = new SqlCommand(sql, con);
             reader = command.ExecuteReader();
 
             while (reader.Read())
             {
-                prices.Add(reader["Party_Item"].ToString(), (decimal)reader["Price"]);
+                foodPrices.Add(reader["Menu"].ToString(), (decimal)reader["Price"]);
             }
+
         }
 
-        public string Menu
+        public void PopulateDrink()
         {
-            get
+            SqlConnection con;
+            con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand command;
+            SqlDataReader reader;
+            String sql = "";
+            sql = "SELECT Drink, Price FROM dbo.[drinkPrices];";
+            command = new SqlCommand(sql, con);
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
             {
-                return menu;
-            }
-            set
-            {
-                menu = value;
-                if (menu == "Non-Vegan")
-                {
-                    MenuCost = prices["Non-Vegan Menu"];
-                }
-                else if (menu == "Vegan")
-                {
-                    MenuCost = prices["Vegan Menu"];
-                }
-                else
-                {
-                    MenuCost = prices["Snacks"];
-                }
+                drinkPrices.Add(reader["Drink"].ToString(), (decimal)reader["Price"]);
             }
         }
-        public string Drink
+
+        public void PopulateEntertainment()
         {
-            get
-            {
-                return drink;
-            }
-            set
-            {
-                drink = value;
-                if (value == "Alcoholic")
-                {
-                    DrinksCost = prices["Alcoholic Drink"];
-                }
+            SqlConnection con;
+            con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand command;
+            SqlDataReader reader;
+            String sql = "";
+            sql = "SELECT Entertainment, Price FROM dbo.[EntertainmentPrices];";
+            command = new SqlCommand(sql, con);
+            reader = command.ExecuteReader();
 
-                else
-                {
-                    DrinksCost = prices["Non-Alcoholic Drink"];
-                }
-
+            while (reader.Read())
+            {
+                entertainmentPrices.Add(reader["Entertainment"].ToString(), (decimal)reader["Price"]);
             }
         }
 
-        public string Entertainment
+        public decimal CostOfParty()
         {
-            get
-            {
-                return entertainment;
-            }
-            set
-            {
-                entertainment = value;
-                if (value == "DJ")
-                {
-                    EntertainmentPrice = prices["DJ"];
-                }
-                else if (value == "Live Entertainment")
-                {
-                    EntertainmentPrice = prices["Live Entertainment"]; 
-                }
-                else
-                {
-                    EntertainmentPrice = 0M;
-                }
-            }
+            if (decorations)
+                return (foodCost + drinksCost) * noOfGuests + entertainmentCost + decorationsCost;
+            else
+                return (foodCost + drinksCost) * noOfGuests + entertainmentCost;
         }
 
-        public string DecorationOption
-        {
-            get
-            {
-                return Decorations;
-            }
-            set
-            {
-                Decorations = value;
 
-                if(value == "Yes")
-                {
-                    DecorationPrice = prices["Decorations"];
-                }
-                else
-                {
-                    DecorationPrice = 0M;
-                }
-            }
-        }
 
-        public decimal CostOfParty()//Calculates total cost
-        {
-             return ((MenuCost + DrinksCost) * NoOfGuests) + EntertainmentPrice + DecorationPrice;           
-        }
     }
 }
