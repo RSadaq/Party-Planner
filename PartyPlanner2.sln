@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyPlanner2", "PartyPlanner2.csproj", "{5F7EAF6F-349E-4201-8222-AA054DEEE8F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyPlanner2Tests", "..\PartyPlanner2Tests\PartyPlanner2Tests.csproj", "{2469BEAC-E0A4-4A19-9EF4-0C0AC01DF050}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyPlanner2Tests", "PartyPlanner2Tests\PartyPlanner2Tests.csproj", "{2469BEAC-E0A4-4A19-9EF4-0C0AC01DF050}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
