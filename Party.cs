@@ -9,22 +9,22 @@ namespace PartyPlanner2
 {
     public class Party
     {
-        internal Party()
+        public Party()
         {
             PopulateFood();
             PopulateDrink();
             PopulateEntertainment();
         }
 
-        internal Dictionary<string, decimal> foodPrices = new Dictionary<string, decimal>();
-        internal Dictionary<string, decimal> drinkPrices = new Dictionary<string, decimal>();
-        internal Dictionary<string, decimal> entertainmentPrices = new Dictionary<string, decimal>();
-        internal bool decorations;
-        internal const decimal decorationsCost = 200;
-        internal decimal foodCost;
-        internal decimal drinksCost;
-        internal decimal entertainmentCost;
-        internal int noOfGuests;
+        public Dictionary<string, decimal> foodPrices = new Dictionary<string, decimal>();
+        public Dictionary<string, decimal> drinkPrices = new Dictionary<string, decimal>();
+        public Dictionary<string, decimal> entertainmentPrices = new Dictionary<string, decimal>();
+        public bool decorations;
+        public const decimal decorationsCost = 200;
+        public decimal foodCost;
+        public decimal drinksCost;
+        public decimal entertainmentCost;
+        public int noOfGuests;
 
         public string connectionString = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Rehana\csharpProjects\PartyPlanner\PartyPlanner\PartyPlannerPrices.mdf;Integrated Security = True";
 
