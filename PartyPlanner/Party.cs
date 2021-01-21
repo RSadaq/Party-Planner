@@ -19,12 +19,39 @@ namespace PartyPlanner
         public Dictionary<string, decimal> foodPrices = new Dictionary<string, decimal>();
         public Dictionary<string, decimal> drinkPrices = new Dictionary<string, decimal>();
         public Dictionary<string, decimal> entertainmentPrices = new Dictionary<string, decimal>();
-        public bool decorations;
+        public bool decorations { get; private set; }
         public const decimal decorationsCost = 200;
-        public decimal foodCost;
-        public decimal drinksCost;
-        public decimal entertainmentCost;
-        public int noOfGuests;
+        public decimal DrinksCost { get; private set; }
+        public decimal EntertainmentCost { get; private set; }
+        public int NoOfGuests { get; private set; }
+        public decimal FoodCost { get; private set; }
+       
+        public void DecorationsRequired(bool required)
+        {
+            decorations = required;
+        }
+
+        public void GetNoOfGuests(int number)
+        {
+            NoOfGuests = number;
+        }
+
+       public void ItemSelected(string type, decimal cost)
+        {
+            if(type == "food")
+            {
+                FoodCost = cost;
+            }
+            else if(type == "entertainment")
+            {
+                EntertainmentCost = cost;
+            }
+            else if (type == "drink")
+            {
+                DrinksCost = cost;
+            }
+        }
+
 
         public string connectionString = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Rehana\csharpProjects\PartyPlanner\PartyPlanner\PartyPlannerPrices.mdf;Integrated Security = True";
 
@@ -86,9 +113,9 @@ namespace PartyPlanner
         public decimal CostOfParty()
         {
             if (decorations)
-                return (foodCost + drinksCost) * noOfGuests + entertainmentCost + decorationsCost;
+                return (FoodCost + DrinksCost) * NoOfGuests + EntertainmentCost + decorationsCost;
             else
-                return (foodCost + drinksCost) * noOfGuests + entertainmentCost;
+                return (FoodCost + DrinksCost) * NoOfGuests + EntertainmentCost;
         }
 
 

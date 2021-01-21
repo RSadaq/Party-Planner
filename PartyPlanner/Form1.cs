@@ -17,14 +17,13 @@ namespace PartyPlanner
             InitializeComponent();
             p = new Party();
 
-            populateListBoxes(p.entertainmentPrices, EntertainmentListBox);
-            populateListBoxes(p.drinkPrices, DrinksListBox);
-            populateListBoxes(p.foodPrices, MenuListBox);
-
+            PopulateListBoxes(p.entertainmentPrices, EntertainmentListBox);
+            PopulateListBoxes(p.drinkPrices, DrinksListBox);
+            PopulateListBoxes(p.foodPrices, MenuListBox);
         }
 
         Party p;
-        public void populateListBoxes(Dictionary<string, decimal> items, ListBox x)//method to populate ListBoxes on UI. Values from db.
+        public void PopulateListBoxes(Dictionary<string, decimal> items, ListBox x)//method to populate ListBoxes on UI. Values from db.
         {
             foreach (KeyValuePair<string, decimal> item in items)
             {
@@ -34,27 +33,27 @@ namespace PartyPlanner
 
         private void MenuListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            p.foodCost = p.foodPrices[MenuListBox.SelectedItem.ToString()];
+            p.ItemSelected("food", p.foodPrices[MenuListBox.SelectedItem.ToString()]);
         }
 
         private void EntertainmentListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            p.entertainmentCost = p.entertainmentPrices[EntertainmentListBox.SelectedItem.ToString()];
+            p.ItemSelected("entertainment", p.entertainmentPrices[EntertainmentListBox.SelectedItem.ToString()]);          
         }
 
         private void DrinksListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            p.drinksCost = p.drinkPrices[DrinksListBox.SelectedItem.ToString()];
+            p.ItemSelected("drink", p.drinkPrices[DrinksListBox.SelectedItem.ToString()]);         
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            p.decorations = checkBox1.Checked? true: false;      
+            p.DecorationsRequired(checkBox1.Checked ? true : false);
         }
 
         private void numericUpDownGuestNo_ValueChanged(object sender, EventArgs e)
         {
-            p.noOfGuests = (int)numericUpDownGuestNo.Value;
+            p.GetNoOfGuests((int)numericUpDownGuestNo.Value);
         }
 
         private void CalculateCostButton_Click(object sender, EventArgs e)

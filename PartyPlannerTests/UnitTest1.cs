@@ -12,11 +12,12 @@ namespace PartyPlannerTest
         {
             const int NUM_OF_GUESTS = 2;
             Party p = new Party();
-            p.drinksCost = p.drinkPrices["Alcoholic"];
-            Assert.IsNotNull(p.drinksCost);
+            Assert.AreEqual(p.DrinksCost, 0);
+            p.ItemSelected("drink", p.drinkPrices["Alcoholic"]);       
+            Assert.IsNotNull(p.DrinksCost);
             Assert.AreEqual(p.CostOfParty(), 0);
-            p.noOfGuests = NUM_OF_GUESTS;
-            Assert.AreEqual(p.CostOfParty(), p.drinksCost * NUM_OF_GUESTS);
+            p.GetNoOfGuests(NUM_OF_GUESTS);
+            Assert.AreEqual(p.CostOfParty(), p.DrinksCost * NUM_OF_GUESTS);
 
         }
 
@@ -25,20 +26,23 @@ namespace PartyPlannerTest
         {
             const int NUM_OF_GUESTS = 5;
             Party p = new Party();
-            p.foodCost = p.foodPrices["Meat"];
-            Assert.IsNotNull(p.foodCost);
+            Assert.AreEqual(p.FoodCost, 0);
             Assert.AreEqual(p.CostOfParty(), 0);
-            p.noOfGuests = NUM_OF_GUESTS;
-            Assert.AreEqual(p.CostOfParty(), p.foodCost * NUM_OF_GUESTS);
+            Assert.IsNotNull(p.foodPrices);
+            p.ItemSelected("food", p.foodPrices["Vegan"]);
+            p.GetNoOfGuests(NUM_OF_GUESTS);
+            Assert.AreEqual(p.CostOfParty(), p.FoodCost * NUM_OF_GUESTS);
         }
 
         [TestMethod]
         public void TestEntertainmentCostIsCorrect()
         {
             Party p = new Party();
-            p.entertainmentCost = p.entertainmentPrices["DJ"];
-            Assert.IsNotNull(p.entertainmentCost);
-            Assert.AreEqual(p.CostOfParty(), p.entertainmentCost);
+            Assert.IsNotNull(p.entertainmentPrices);
+            Assert.AreEqual(p.CostOfParty(), 0);
+            Assert.AreEqual(p.EntertainmentCost, 0);
+            p.ItemSelected("entertainment", p.entertainmentPrices["DJ"]);
+            Assert.AreEqual(p.CostOfParty(), p.EntertainmentCost);
 
         }
 
@@ -47,12 +51,12 @@ namespace PartyPlannerTest
         {
             const int NUM_OF_GUESTS = 5;
             Party p = new Party();
-            p.drinksCost = p.drinkPrices["Alcoholic"];
-            p.foodCost = p.foodPrices["Meat"];
-            p.entertainmentCost = p.entertainmentPrices["DJ"];
-            p.decorations = true;
-            p.noOfGuests = NUM_OF_GUESTS;
-            Assert.AreEqual(p.CostOfParty(), (p.drinksCost + p.foodCost) * NUM_OF_GUESTS + p.entertainmentCost + Party.decorationsCost);
+            p.ItemSelected("drink", p.drinkPrices["Alcoholic"]);
+            p.ItemSelected("food", p.foodPrices["Vegan"]);
+            p.ItemSelected("entertainment", p.entertainmentPrices["DJ"]);
+            p.DecorationsRequired(true);
+            p.GetNoOfGuests(NUM_OF_GUESTS); 
+            Assert.AreEqual(p.CostOfParty(), (p.DrinksCost + p.FoodCost) * NUM_OF_GUESTS + p.EntertainmentCost + Party.decorationsCost);
         }
     }
 }
