@@ -53,7 +53,6 @@ namespace PartyPlannerTest
             p.decorations = true;
             p.noOfGuests = NUM_OF_GUESTS;
             Assert.AreEqual(p.CostOfParty(), (p.drinksCost + p.foodCost) * NUM_OF_GUESTS + p.entertainmentCost + Party.decorationsCost);
-
         }
     }
 }

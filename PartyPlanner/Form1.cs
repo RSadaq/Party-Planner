@@ -49,14 +49,7 @@ namespace PartyPlanner
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-            {
-                p.decorations = true;
-            }
-            else
-            {
-                p.decorations = false;
-            }
+            p.decorations = checkBox1.Checked? true: false;      
         }
 
         private void numericUpDownGuestNo_ValueChanged(object sender, EventArgs e)
@@ -72,7 +65,7 @@ namespace PartyPlanner
                 {
                     throw new ArgumentNullException();
                 }
-                TotalCostLabel.Text = "£ " + p.CostOfParty().ToString();
+                TotalCostLabel.Text = "£ " + p.CostOfParty().ToString("#.##");
             }
             catch (ArgumentNullException ex)
             {
