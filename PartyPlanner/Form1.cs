@@ -72,7 +72,7 @@ namespace PartyPlanner
                 {
                     throw new ArgumentNullException();
                 }
-                TotalCostLabel.Text = "£ " + p.CostOfParty().ToString("0.##");
+                TotalCostLabel.Text = "£ " + p.CostOfParty().ToString();
             }
             catch (ArgumentNullException ex)
             {
