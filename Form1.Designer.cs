@@ -83,6 +83,7 @@
             this.DrinksListBox.Name = "DrinksListBox";
             this.DrinksListBox.Size = new System.Drawing.Size(110, 84);
             this.DrinksListBox.TabIndex = 21;
+            this.DrinksListBox.SelectedIndexChanged += new System.EventHandler(this.DrinksListBox_SelectedIndexChanged);
             // 
             // drinksLabel
             // 
@@ -124,6 +125,7 @@
             this.CalculateCostButton.TabIndex = 17;
             this.CalculateCostButton.Text = "Calculate cost of party";
             this.CalculateCostButton.UseVisualStyleBackColor = true;
+            this.CalculateCostButton.Click += new System.EventHandler(this.CalculateCostButton_Click);
             // 
             // TotalCostLabel
             // 
@@ -151,6 +153,7 @@
             this.numericUpDownGuestNo.Name = "numericUpDownGuestNo";
             this.numericUpDownGuestNo.Size = new System.Drawing.Size(90, 26);
             this.numericUpDownGuestNo.TabIndex = 14;
+            this.numericUpDownGuestNo.ValueChanged += new System.EventHandler(this.numericUpDownGuestNo_ValueChanged);
             // 
             // checkBox1
             // 
@@ -161,6 +164,7 @@
             this.checkBox1.TabIndex = 25;
             this.checkBox1.Text = "Tick if required";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Form1
             // 

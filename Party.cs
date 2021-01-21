@@ -9,19 +9,23 @@ namespace PartyPlanner2
 {
     public class Party
     {
-        public Party()
+        internal Party()
         {
             PopulateFood();
             PopulateDrink();
             PopulateEntertainment();
         }
 
-        public Dictionary<string, decimal> foodPrices = new Dictionary<string, decimal>();
-        public Dictionary<string, decimal> drinkPrices = new Dictionary<string, decimal>();
-        public Dictionary<string, decimal> entertainmentPrices = new Dictionary<string, decimal>();
-        private bool Decorations;
-        private const decimal decorationsCost = 200;
-       
+        internal Dictionary<string, decimal> foodPrices = new Dictionary<string, decimal>();
+        internal Dictionary<string, decimal> drinkPrices = new Dictionary<string, decimal>();
+        internal Dictionary<string, decimal> entertainmentPrices = new Dictionary<string, decimal>();
+        internal bool decorations;
+        internal const decimal decorationsCost = 200;
+        internal decimal foodCost;
+        internal decimal drinksCost;
+        internal decimal entertainmentCost;
+        internal int noOfGuests;
+
         public string connectionString = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Rehana\csharpProjects\PartyPlanner\PartyPlanner\PartyPlannerPrices.mdf;Integrated Security = True";
 
         public void PopulateFood()
@@ -78,5 +82,16 @@ namespace PartyPlanner2
                 entertainmentPrices.Add(reader["Entertainment"].ToString(), (decimal)reader["Price"]);
             }
         }
+
+        public decimal CostOfParty()
+        {
+            if(decorations)
+            return (foodCost + drinksCost) * noOfGuests + entertainmentCost + decorationsCost;
+            else
+                return (foodCost + drinksCost) * noOfGuests + entertainmentCost;
+        }
+
+
+
     }
 }
